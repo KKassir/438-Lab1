@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 
+  </head>
+  <body>
+      {% load crispy_forms_tags %}
+      {% block content %}
+      <center>
+        <nav class="navbar navbar-light bg-dark">
+        <form class="d-flex" method=POST action="compare">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Name 1" aria-label="Search" name="fname">
+          <input class="form-control me-2" type="search" placeholder="Name 2" aria-label="Search" name="sname">
+          <button class="btn btn-primary" type="submit">Compare(P,T,M)</button>
+        </nav>
+        </form>
+        {% if fname  %}{% if sname  %}
+          <br/>
+          {% for contact1 in contacts1 %}
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ contact1.name }}</h5>
+              <p class="card-text">{{ contact1.profession }}</p>
+              <p class="card-text">{{ contact1.tel_num }}</p>
+              <p class="card-text">{{ contact1.mob_num }}</p>
+            </div>
+          <br/>
+          {% for contact2 in contacts2 %}
+          <br/>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ contact2.name }}</h5>
+              <p class="card-text">{{ contact2.profession }}</p>
+              <p class="card-text">{{ contact2.tel_num }}</p>
+              <p class="card-text">{{ contact2.mob_num }}</p>
+            </div>
+          <br/>
+
+          <br/>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                {% if contact1.profession == contact2.profession  %}
+                {% if contact1.tel_num == contact2.tel_num  %}
+                {% if contact1.mob_num == contact2.mob_num  %}
+                True 
+                {% else %}
+                False
+                {% endif %}
+                {% else %}
+                False
+                {% endif %}
+                {% else %}
+                False
+                {% endif %}
+              {% endfor %}
+              {% endfor %}
+    
+            {% else %}
+            {% endif %}
+            {% endif %}</h5>
+            </div>
+          <br/>
+         
+      </center>
+      {% endblock %}
+
+      
+
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 
+  </head>
+  <body>
+      {% load crispy_forms_tags %}
+
+      {% block content %}
+      <center>
+        <nav class="navbar navbar-light bg-dark">
+        <form class="d-flex" method=POST action="searchNT">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Search(Name/Telephone Number)" aria-label="Search" name="searched">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </nav>
+        </form>
+        <nav class="navbar navbar-light bg-dark">
+        <form class="d-flex" method=POST action="searchP">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Search(Profession)" aria-label="Search" name="searched1">
+          <button class="btn btn-primary" type="submit">Search</button>
+        </nav>
+
+        </form>
+        {% if searched %}
+          <h1> Results:</h1>
+          <br/>
+          {% for contact in contacts %}
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ contact.name }}</h5>
+              <p class="card-text">{{ contact.profession }}</p>
+              <p class="card-text">{{ contact.tel_num }}</p>
+              <p class="card-text">{{ contact.mob_num }}</p>
+            </div>
+          {% endfor %}
+
+        {% else %}
+        {% endif %}
+
+        {% if searched1 %}
+          <h1> Results</h1>
+          <br/>
+          {% for contact in contacts %}
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ contact.name }}</h5>
+              <p class="card-text">{{ contact.profession }}</p>
+              <p class="card-text">{{ contact.tel_num }}</p>
+              <p class="card-text">{{ contact.mob_num }}</p>
+            </div>
+          {% endfor %}
+
+        {% else %}
+        {% endif %}
+      </center>
+      {% endblock %}
+
+      
+
+  </body>
+</html>

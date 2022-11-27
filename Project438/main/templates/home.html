@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+   <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ 
+  </head>
+  <body>
+      {% load crispy_forms_tags %}
+
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand mx-auto" href="">
+          Contacts Database
+        </a>
+      </nav>
+      <br><br>
+      
+
+      <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <button class ="btn btn-primary" type="submit" id= "submit_button">Submit</button>
+      </form>
+      </div>
+      <br>
+      <nav class="navbar navbar-light bg-dark" style="height: 12rem;">
+        <a class="navbar-brand mx-auto" href="searchname">
+          Search
+        </a>
+        <a class="navbar-brand mx-auto" href="comparepage">
+          Compare(>=<)
+        </a>
+        </nav>
+        <br>
+      <div class="container">
+        {% for contact in contacts %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ contact.name }}</h5>
+            <p class="card-text">{{ contact.profession }}</p>
+            <p class="card-text">{{ contact.tel_num }}</p>
+            <p class="card-text">{{ contact.mob_num }}</p>
+            <p class="card-text"><a href="update/{{contact.id}}">Edit</a></p>
+            <p class="card-text"><a href="destroy/{{contact.id}}">Delete</a></p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      
+
+
+  </body>
+</html>
